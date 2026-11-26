@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#f5f2ed">
+<title>Super Zana · Update in progress</title>
+<meta name="robots" content="noindex">
+<style>
+  :root {
+    color: #201b2c;
+    background: #f5f2ed;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-synthesis: none;
+    accent-color: #5b3876;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  :focus-visible { outline: 2px solid #724b92; outline-offset: 4px; }
+
+
+  .page {
+    display: grid;
+    align-items: center;
+    grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+    gap: clamp(28px, 5.7vw, 92px);
+    min-height: 100svh;
+    max-width: 1456px;
+    padding: clamp(22px, 4vw, 58px);
+    margin: auto;
+  }
+  .notice {
+    position: relative;
+    padding: 0 0 clamp(42px, 8vh, 100px);
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #272332;
+    font-size: 16px;
+    font-weight: 690;
+    letter-spacing: -.025em;
+    padding: 4px 0;
+    margin-bottom: clamp(50px, 11vh, 126px);
+  }
+  .brand img { width: 36px; height: 36px; border-radius: 10px; }
+  .copy h1 {
+    margin: 0;
+    max-width: 9.4em;
+    font: 400 clamp(54px, 6.05vw, 91px) / .98 "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    letter-spacing: -.052em;
+    text-wrap: balance;
+  }
+  .copy h1 em { font-weight: 400; color: #69447e; }
+  .copy > p {
+    max-width: 32ch;
+    margin: 25px 0 0;
+    font-size: clamp(16px, 1.55vw, 19px);
+    line-height: 1.55;
+    color: #575160;
+    text-wrap: pretty;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 16px;
+    margin-top: 28px;
+    min-height: 44px;
+  }
+  .retry {
+    display: inline-flex;
+    gap: 13px;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 16px;
+    border: 1px solid #ccc3d1;
+    border-radius: 9px;
+    background: #faf8f5;
+    color: #30213d;
+    font-size: 14px;
+    font-weight: 660;
+    text-decoration: none;
+    transition: background .2s, border-color .2s;
+  }
+  .retry:hover { background: #eee6f0; border-color: #9c86ac; }
+  .retry .arrow { font-size: 18px; line-height: 1; }
+
+  .art {
+    position: relative;
+    isolation: isolate;
+    height: clamp(440px, calc(100svh - clamp(44px, 8vw, 116px)), 850px);
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 30px;
+    background: #111020;
+    box-shadow: 0 24px 56px #261c3e25, inset 0 0 0 1px #e6ceff18;
+  }
+  .sky, .sky::before, .sky::after { position: absolute; inset: 0; pointer-events: none; }
+  .sky {
+    background:
+      radial-gradient(ellipse at 80% 9%, #5b4c82 0, transparent 50%),
+      radial-gradient(ellipse at 16% 90%, #443260 0, transparent 53%),
+      radial-gradient(ellipse at 58% 54%, #30294c 0, #171427 60%, #111020 100%);
+  }
+  .sky::before {
+    content: "";
+    background:
+      radial-gradient(ellipse at 100% 12%, #ffbc8f50, transparent 28%),
+      radial-gradient(ellipse at 94% 109%, #3086a74a, transparent 34%),
+      radial-gradient(ellipse at 4% 65%, #322f756e, transparent 46%),
+      linear-gradient(155deg, #ffffff10, transparent 50%);
+  }
+  .sky::after {
+    content: "";
+    background: radial-gradient(ellipse at 50% 50%, #aaa2ff27 0, #9696fb0d 27%, transparent 59%);
+    animation: glow 8s ease-in-out infinite alternate;
+  }
+  .stars { position: absolute; inset: 0; background: url('./stars.png') center / 100% 100%; }
+  .orbit {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: 110%;
+    height: 39%;
+    border-radius: 50%;
+    border: 1px solid #dad0ff29;
+    transform: translate(-50%, -50%) rotate(-31deg);
+  }
+  .orbit::before, .orbit::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid #d5c8fc21;
+    inset: 9% -9%;
+  }
+  .orbit::after { inset: -15% 8%; border-color: #d5c8fc18; }
+  .orbit-light {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ffdfb9;
+    box-shadow: 0 0 9px 3px #fff0cb66, 0 0 26px 5px #eeb0d945;
+    offset-path: ellipse(43% 34% at 50% 50%);
+    offset-distance: 17%;
+    animation: orbit 18s linear infinite;
+  }
+
+  .scene {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: 324px;
+    height: 294px;
+    transform: translate(-50%, -52%) rotate(-12deg);
+    perspective: 680px;
+    pointer-events: none;
+  }
+  .butterfly {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    animation: hover 7s ease-in-out infinite;
+  }
+  .wing {
+    position: absolute;
+    top: 0;
+    width: 154px;
+    height: 276px;
+    transform-style: preserve-3d;
+    backface-visibility: visible;
+  }
+  .wing.left { right: calc(50% - 2px); transform-origin: right 50%; animation: flutter-left 4.4s ease-in-out infinite; }
+  .wing.right { left: calc(50% - 2px); transform-origin: left 50%; animation: flutter-right 4.4s ease-in-out infinite; }
+  .wing.right::before { transform: scaleX(-1); }
+  .wing::before { content: ""; position: absolute; inset: 0; background: url("./wing.png") center / contain no-repeat; }
+  .body {
+    position: absolute;
+    z-index: 2;
+    top: 111px;
+    left: 50%;
+    width: 37px;
+    height: 117px;
+    transform: translateX(-50%) translateZ(2px);
+    filter: drop-shadow(0 0 13px #b5e7ff96);
+  }
+  .spark {
+    position: absolute;
+    top: 19%;
+    left: 70%;
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(125deg, #fff9db, #ffc17d 75%);
+    clip-path: polygon(50% 0%, 63% 36%, 100% 50%, 63% 62%, 50% 100%, 37% 62%, 0% 50%, 37% 36%);
+    animation: shimmer 5s ease-in-out infinite;
+  }
+  .spark.small { width: 15px; height: 15px; top: 67%; left: 21%; animation-delay: -2.5s; }
+  .spark.high { width: 13px; height: 13px; top: 26%; left: 24%; background: #ded0ff; animation-delay: -1s; }
+  .motion {
+    position: absolute;
+    z-index: 3;
+    bottom: 17px;
+    right: 17px;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border: 1px solid #e8ddff55;
+    border-radius: 50%;
+    background: #171323aa;
+    color: #f5ebff;
+    cursor: pointer;
+  }
+  .motion:hover { background: #3c3050; }
+  .motion-toggle {
+    position: absolute;
+    bottom: 17px;
+    right: 17px;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    opacity: 0;
+  }
+  .motion-toggle:focus-visible ~ .motion { outline: 2px solid #fff0ff; outline-offset: 4px; }
+  .motion-icon { display: flex; gap: 4px; }
+  .motion-icon::before, .motion-icon::after { content: ""; display: block; width: 2px; height: 12px; background: currentColor; border-radius: 2px; }
+  .motion-toggle:checked ~ .motion .motion-icon::before { width: 0; height: 0; background: transparent; border: 6px solid transparent; border-left: 9px solid currentColor; border-right: 0; border-radius: 0; margin-left: 2px; }
+  .motion-toggle:checked ~ .motion .motion-icon::after { display: none; }
+  .motion-toggle:checked ~ .scenery *, .motion-toggle:checked ~ .scenery *::after { animation-play-state: paused !important; }
+
+  @keyframes hover {
+    0%, 100% { transform: translateY(5px) rotateZ(-4deg); }
+    50% { transform: translateY(-16px) rotateZ(4deg); }
+  }
+  @keyframes flutter-left {
+    0%, 100% { transform: rotateY(-12deg) rotateZ(2deg); }
+    41% { transform: rotateY(-48deg) rotateZ(-3deg); }
+    72% { transform: rotateY(-21deg) rotateZ(0); }
+  }
+  @keyframes flutter-right {
+    0%, 100% { transform: rotateY(18deg) rotateZ(-2deg); }
+    41% { transform: rotateY(52deg) rotateZ(3deg); }
+    72% { transform: rotateY(27deg) rotateZ(0); }
+  }
+  @keyframes glow { from { opacity: .42; } to { opacity: 1; } }
+  @keyframes shimmer { 0%, 100% { transform: scale(.8); opacity: .65; } 50% { transform: scale(1.15); opacity: 1; } }
+  @keyframes orbit { to { offset-distance: 117%; } }
+
+  @media (max-width: 900px) {
+    .scene { scale: .82; }
+    .copy h1 { font-size: clamp(49px, 7.1vw, 69px); }
+  }
+  @media (max-width: 650px) {
+    .page { grid-template-columns: 1fr; gap: 26px; padding: 20px 18px 18px; }
+    .notice { padding: 0 3px; }
+    .brand { margin-bottom: 26px; }
+    .copy h1 { font-size: clamp(49px, 10.4vw, 68px); }
+    .copy > p { margin-top: 16px; }
+    .actions { margin-top: 17px; }
+    .art { height: clamp(280px, 47vh, 420px); border-radius: 22px; }
+    .scene { scale: .72; }
+    .motion { right: 12px; bottom: 12px; }
+  }
+  @media (max-width: 360px) {
+    .copy h1 { font-size: 46px; }
+    .scene { scale: .62; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .scenery *, .scenery *::after { animation: none !important; }
+    .motion-toggle, .motion { display: none; }
+    .retry { transition: none; }
+  }
+</style>
+</head>
+<body>
+  <main class="page">
+    <section class="notice" aria-labelledby="headline">
+      <div class="brand"><img src="./mark.png" alt="" width="36" height="36">Super Zana</div>
+      <div class="copy">
+        <h1 id="headline">Super Zana is getting <em>an update.</em></h1>
+        <p>Please give us a moment. We’ll be back shortly.</p>
+        <div class="actions">
+          <a class="retry" href="https://super-zana-demo-508fb6fef246.herokuapp.com/" target="_blank" rel="noopener noreferrer">
+            <span class="arrow" aria-hidden="true">↻</span> Check again
+          </a>
+        </div>
+      </div>
+    </section>
+    <div class="art">
+      <input class="motion-toggle" type="checkbox" id="pause-motion" aria-label="Pause animation">
+      <div class="scenery" aria-hidden="true">
+        <div class="sky"></div>
+        <div class="stars"></div>
+        <div class="orbit"><span class="orbit-light"></span></div>
+        <div class="scene">
+          <div class="butterfly">
+            <div class="wing left"></div>
+            <div class="wing right"></div>
+            <img class="body" alt="" width="37" height="117" src="./body.png">
+          </div>
+        </div>
+        <span class="spark"></span><span class="spark small"></span><span class="spark high"></span>
+      </div>
+      <label class="motion" for="pause-motion"><span class="motion-icon" aria-hidden="true"></span></label>
+    </div>
+  </main>
+</body>
+</html>
